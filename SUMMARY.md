@@ -10,4 +10,5 @@
 * [批量加载数据](pi-liang-jia-zai-shu-ju.md)
 * [加载流数据](jia-zai-liu-shu-ju.md)
 * [Query data](query-data.md)
+* [大数据分析和Druid](da-shu-jufen-xi-he-druid.md)
 
