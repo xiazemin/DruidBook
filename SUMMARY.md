@@ -9,5 +9,5 @@
 * [Druid 单机环境](druid-dan-ji-huan-jing.md)
 * [批量加载数据](pi-liang-jia-zai-shu-ju.md)
 * [加载流数据](jia-zai-liu-shu-ju.md)
-* Query data
+* [Query data](query-data.md)
 
