@@ -22,5 +22,35 @@ dataSource指定数据源的名字，可以自定义，后面在做查询的时�
 
 8\) 用curl命令发送查询请求
 
+在Druid目录下执行如下指令：
+
+
+
+bin/generate-example-metrics 
+
+在kafka目录下执行：
+
+
+
+./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic metrics
+
+现在kafka-console-producer就开始等待数据的输入了，复制刚生成的示例数据并粘贴到kafka-console-producer控制台终端，回车确认。当然也可以复制更多数据到终端，或者CTRL-D退出。
+
+现在就可以进行数据查询了，当然也可以参考下文去加载自定义数据集。
+
+
+
+数据查询
+
+数据发送完成后就可以进行数据查询了，使用方法详见 supported query methods.
+
+
+
+加载自定义数据
+
+目前为止，我们已经按照Druid发布版本中的数据提取规范，将数据从kafka加载到了Druid。每一个数据提取规范都是为了特定的数据集设计的，也可以通过自定义提取规范来加载自定义数据。
+
+自定义数据提取规范，可以按需修改conf-quickstart/tranquility/kafka.json配置文件
+
 
 
