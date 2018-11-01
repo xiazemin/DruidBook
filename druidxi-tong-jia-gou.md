@@ -110,11 +110,9 @@ Overlord向MiddleManager分发任务。
 
 Overlord节点负责接受任务，协调任务分发，创建锁，和返回状态给调用者。Overlord节点可以以本地模式或者远程模式运行。本地模式会直接创建Peon，远程模式会通过Middle Manager创建任务。
 
-
-
 实时节点
 
 实时节点提供实时索引服务，通过实时节点索引的数据立即可查。实时节点会周期性的构建Segment，并且把这些Segment推到历史节点并修改元数据。
 
-
+![](/assets/时序图.png)
 
