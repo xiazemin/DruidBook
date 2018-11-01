@@ -34,10 +34,6 @@ bin/generate-example-metrics \| curl -XPOST -H'Content-Type: application/json' -
 
 这表明http server 从你这里接收到了25条数据，并发送了这25条数据到druid。 在你第一次运行的时候，这个过程需要花一些时间，一段数据加载成功后，就可以查询了。
 
-Query data
-
-接下来就是数据查询了，我们可以采用如下几种方式来查询数据
-
 
 
 
