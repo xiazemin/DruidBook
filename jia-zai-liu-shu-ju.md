@@ -8,9 +8,9 @@ tar -xzf tranquility-distribution-0.8.0.tgz
 
 cd tranquility-distribution-0.8.0
 
-```
-  druid目录中自带了一个配置文件 conf-quickstart/tranquility/server.json  启动tranquility服务进程， 就可以向druid的 metrics datasource 推送实时数据。
-```
+druid目录中自带了一个配置文件 conf-quickstart/tranquility/server.json 启动tranquility服务进程， 就可以向druid的 metrics datasource 推送实时数据。
+
+
 
 bin/tranquility server -configFile &lt;path\_to\_druid\_distro&gt;/conf-quickstart/tranquility/server.json
 
