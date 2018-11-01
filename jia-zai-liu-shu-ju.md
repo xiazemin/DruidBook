@@ -24,9 +24,9 @@ value\_min \(derived from value in the input\)
 
 value\_max \(derived from value in the input\)
 
- 我们采用了一个脚本，来随机生成度量数据，导入到这个datasource中
+我们采用了一个脚本，来随机生成度量数据，导入到这个datasource中
 
-bin/generate-example-metrics \| curl -XPOST -H'Content-Type: application/json' --data-binary @- http://localhost:8200/v1/post/metrics
+bin/generate-example-metrics \| curl -XPOST -H'Content-Type: application/json' --data-binary @- [http://localhost:8200/v1/post/metrics](http://localhost:8200/v1/post/metrics)
 
 执行完成后会返回
 
@@ -36,5 +36,9 @@ bin/generate-example-metrics \| curl -XPOST -H'Content-Type: application/json' -
 
 Query data
 
-     接下来就是数据查询了，我们可以采用如下几种方式来查询数据
+接下来就是数据查询了，我们可以采用如下几种方式来查询数据
+
+
+
+
 
