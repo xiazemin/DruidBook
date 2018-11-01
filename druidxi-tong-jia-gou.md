@@ -14,8 +14,6 @@ Realtime：获取实时数据
 
 ![](/assets/druid数据流向.png)除了上述五个节点，Druid还有三个外部依赖：
 
-
-
 Zookeeper集群
 
 元数据存储实例：Mysql
@@ -26,11 +24,9 @@ Segments
 
 Druid 把它的索引存储到一个Segment文件中，Segment文件是通过时间来分割的。
 
-
-
 Segment数据结构
 
 对于摄入到Druid的数据的列，主要分三种类型，时间列，指标列和维度列。
 
-
+![](/assets/数据结构.png)
 
