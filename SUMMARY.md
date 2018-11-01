@@ -14,4 +14,5 @@
 * [Druid系统架构](druidxi-tong-jia-gou.md)
 * [druid特点](druidte-dian.md)
 * [Spark+Redis+Hbase 实时数据探索](spark+redis+hbase-shi-shi-shu-ju-tan-suo.md)
+* [Druid架构组成及其他依赖](druidjia-gou-zu-cheng-ji-qi-ta-yi-lai.md)
 
