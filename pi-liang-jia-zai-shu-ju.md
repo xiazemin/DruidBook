@@ -54,9 +54,17 @@ Druid是通过post请求的方式提交任务的， 上面我们也讲过，over
 
 在druid根目录下执行
 
-
-
 curl -X 'POST' -H 'Content-Type:application/json' -d @quickstart/wikiticker-index.json localhost:8090/druid/indexer/v1/task
 
 其中wikiticker-index.json 文件指明了数据文件的位置，类型，数据的schema\(如度量，维度，时间，在druid中的数据源名称等\)等信息
+
+ 当控制台打印如下信息后，说明任务提交成功
+
+{"task":"index\_hadoop\_wikipedia\_2013-10-09T21:30:32.802Z"}
+
+     可以在overload控制台 http://localhost:8090/console.html来查看任务的运行情况， 当状态为“SUCCESS”时， 说明任务执行成功。
+
+     当数据注入成功后，historical node会加载这些已经注入到集群的数据，方便查询，这大概需要花费1-2分钟的时间。 你可以在coordinator 控制台http://localhost:8081/\#/来查看数据的加载进度
+
+当名为wikiticker的datasource 有个蓝色的小圈，并显示fully available时，说明数据已经可以了。可以执行查询操作了。
 
