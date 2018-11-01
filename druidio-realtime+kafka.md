@@ -52,3 +52,187 @@ dimensionsSpec，哪些能作为维度字段
 
 metricsSpec，哪些能作为度量进行计算
 
+使用网页浏览为例并将输入发送到pageviews的topic里，示例数据如下：
+
+
+
+{"time": "2000-01-01T00:00:00Z", "url": "/foo/bar", "user": "alice", "latencyMs": 32}
+
+首先创建topic
+
+
+
+./bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic pageviews
+
+修改conf-quickstart/tranquility/kafka.json配置文件，修改后：
+
+
+
+{
+
+  "dataSources" : {
+
+    "metrics-kafka" : {
+
+      "spec" : {
+
+        "dataSchema" : {
+
+          "dataSource" : "pageviews-kafka",
+
+          "parser" : {
+
+            "type" : "string",
+
+            "parseSpec" : {
+
+              "timestampSpec" : {
+
+                "column" : "time",
+
+                "format" : "auto"
+
+              },
+
+              "dimensionsSpec" : {
+
+                "dimensions" : \["url", "user"\],
+
+                "dimensionExclusions" : \[
+
+                  "timestamp",
+
+                  "value"
+
+                \]
+
+              },
+
+              "format" : "json"
+
+            }
+
+          },
+
+          "granularitySpec" : {
+
+            "type" : "uniform",
+
+            "segmentGranularity" : "hour",
+
+            "queryGranularity" : "none"
+
+          },
+
+          "metricsSpec" : \[
+
+            {
+
+              "name": "views",
+
+             "type": "count"
+
+            },
+
+           {
+
+              "name": "latencyMs", 
+
+              "type": "doubleSum",
+
+              "fieldName": "latencyMs"
+
+            }
+
+          \]
+
+        },
+
+        "ioConfig" : {
+
+          "type" : "realtime"
+
+        },
+
+        "tuningConfig" : {
+
+          "type" : "realtime",
+
+          "maxRowsInMemory" : "100000",
+
+          "intermediatePersistPeriod" : "PT10M",
+
+          "windowPeriod" : "PT10M"
+
+        }
+
+      },
+
+      "properties" : {
+
+        "task.partitions" : "1",
+
+        "task.replicants" : "1",
+
+        "topicPattern" : "pageviews"
+
+      }
+
+    }
+
+  },
+
+  "properties" : {
+
+    "zookeeper.connect" : "localhost",
+
+    "druid.discovery.curator.path" : "/druid/discovery",
+
+    "druid.selectors.indexing.serviceName" : "druid/overlord",
+
+    "commit.periodMillis" : "15000",
+
+    "consumer.numThreads" : "2",
+
+    "kafka.zookeeper.connect" : "localhost",
+
+    "kafka.group.id" : "tranquility-kafka"
+
+  }
+
+}
+
+下面启动Druid的kafka提取服务：
+
+
+
+bin/tranquility kafka -configFile ../druid-0.9.2/conf-quickstart/tranquility/kafka.json
+
+如果Tranquility或者kafka已经启动，可以停止并重新启动。
+
+最后将数据发送到kafka的topic，以下面这些数据为例：
+
+
+
+{"time": "2000-01-01T00:00:00Z", "url": "/foo/bar", "user": "alice", "latencyMs": 32}
+
+{"time": "2000-01-01T00:00:00Z", "url": "/", "user": "bob", "latencyMs": 11}
+
+{"time": "2000-01-01T00:00:00Z", "url": "/foo/bar", "user": "bob", "latencyMs": 45}
+
+Druid流处理需要相对当前（准实时）的数据，相而言windowPeriod值控制的是更宽松的时间窗口（也就是流处理会检查数据timestamp的值，而时间窗口只关注数据接收的时间）。所以需要将2000-01-01T00:00:00Z转换为ISO8601格式的当前系统时间，你可以用以下命令转换：
+
+
+
+python -c 'import datetime; print\(datetime.datetime.utcnow\(\).strftime\("%Y-%m-%dT%H:%M:%SZ"\)\)'
+
+更新上述JSON中的时间戳，然后将这些消息复制并粘贴到此kafka-console-producer，然后按Enter键：
+
+
+
+./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic pageviews
+
+就这样，数据应该已经保存在Druid里了，可以使用任何Druid支持的查询方式查询这些数据了。
+
+http://druid.io/docs/0.9.2/ingestion/stream-ingestion.html
+
