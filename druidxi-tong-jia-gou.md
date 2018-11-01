@@ -2,8 +2,6 @@ Druid是一个高效的数据查询系统，主要解决的是对于大量的基
 
 Druid是一组系统，按照职责分成不同的角色。目前存在五种节点类型：
 
-
-
 Historical： 历史节点的职责主要是对历史的数据进行存储和查询，历史节点从Deep Storage下载Segment，然后响应Broker对于Segment的查询将查询结果返回给Broker节点，它们通过Zookeeper来声明自己存储的节点，同时也通过zookeeper来监听加载或删除Segment的信号。
 
 Coordinator：协调节点监测一组历史节点来保证数据的可用和冗余。协调节点读取元数据存储来确定哪些Segment需要load到集群中，通过zk来感知Historical节点的存在，通过在Zookeeper上创建entry来和Historical节点通信来告诉他们加载或者删除Segment
@@ -14,5 +12,5 @@ Indexing Service: 索引服务是一些worker用来从实时获取数据或者�
 
 Realtime：获取实时数据
 
-
+![](/assets/druid数据流向.png)
 
