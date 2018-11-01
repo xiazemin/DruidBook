@@ -24,13 +24,9 @@ dataSource指定数据源的名字，可以自定义，后面在做查询的时�
 
 在Druid目录下执行如下指令：
 
-
-
-bin/generate-example-metrics 
+bin/generate-example-metrics
 
 在kafka目录下执行：
-
-
 
 ./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic metrics
 
@@ -38,13 +34,9 @@ bin/generate-example-metrics
 
 现在就可以进行数据查询了，当然也可以参考下文去加载自定义数据集。
 
-
-
 数据查询
 
 数据发送完成后就可以进行数据查询了，使用方法详见 supported query methods.
-
-
 
 加载自定义数据
 
@@ -52,5 +44,11 @@ bin/generate-example-metrics
 
 自定义数据提取规范，可以按需修改conf-quickstart/tranquility/kafka.json配置文件
 
+dataSchema，使用的数据集名称
 
+timestampSpec，哪个是时间字段
+
+dimensionsSpec，哪些能作为维度字段
+
+metricsSpec，哪些能作为度量进行计算
 
