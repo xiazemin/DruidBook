@@ -10,55 +10,31 @@ curl -L -H'Content-Type: application/json' -XPOST --data-binary @quickstart/wiki
 
 Visualizing data 数据可视化
 
-```
-      druid是面向用户分析应用的完美方案， 有很多开源的应用支持druid的数据可视化， 如pivot, caravel 和 metabase等
-```
+druid是面向用户分析应用的完美方案， 有很多开源的应用支持druid的数据可视化， 如pivot, caravel 和 metabase等
+
+
 
 SQL and other query libraries 查询组件
 
 有许多查询组件供我们使用，如sql引擎， 还有其他各种语言提供的组件，如python和ruby。 具体如下：
 
-
-
 python： druid-io/pydruid
-
-
 
 R: druid-io/RDruid
 
-
-
 JavaScript: implydata/plywood
-
-
 
 7eggs/node-druid-query
 
-
-
 Clojure: y42/clj-druid
-
-
 
 Ruby: ruby-druid/ruby-druid
 
-
-
 redBorder/druid\\_config
-
-
 
 SQL: Apache Calcite
 
-
-
 implydata/plyql
 
-
-
 PHP: pixelfederation/druid-php
-
-
-
-
 
