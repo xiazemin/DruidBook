@@ -16,4 +16,5 @@
 * [Spark+Redis+Hbase 实时数据探索](spark+redis+hbase-shi-shi-shu-ju-tan-suo.md)
 * [Druid架构组成及其他依赖](druidjia-gou-zu-cheng-ji-qi-ta-yi-lai.md)
 * [druid.io realtime+kafka](druidio-realtime+kafka.md)
+* [Druid中的Kafka Indexing Service](druidzhong-de-kafka-indexing-service.md)
 
