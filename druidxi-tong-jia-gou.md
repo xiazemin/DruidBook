@@ -88,8 +88,6 @@ Broker节点会维护一个LRU缓存，缓存存着每个Segment的结果，缓�
 
 协调节点负责Segment的管理和分发，协调节点指挥历史节点来加载或者删除Segment，以及Segment的冗余和平衡Segment。协调节点会周期性的进行扫描，每次扫描会根据集群当前的状态来决定进一步的动作。和历史节点和Broker一样，协调节点通过zk来获取Segment信息，同时协调节点还通过数据库来获取可用的Segment信息和规则。在一个Segment提供查询之前，可用的历史节点会按照容量去排序，容量最小的具有最高的优先级，协调节点就会让它去加载这个Segment然后提供服务。
 
-
-
 清理Segment，Druid会将集群中的Segment和数据库中的Segment进行对比，如果集群有的的数据库中没有的会被清理掉。同事那些老的被新的替换的Segment也会被清理掉。
 
 Segment可用性, 历史节点可能因为某种原因不可用，协调节点会发现节点不可用了，会将这个节点上的Segment转移到其他的节点。Segment不会立即被转移，如果在配置的时间段内节点恢复了，历史节点会从本地缓存加载Segment。恢复服务
@@ -100,8 +98,6 @@ Segment负载均衡，协调节点会找到Segment最多的节点和Segment最�
 
 索引服务是一个高可用的，分布式的服务来运行索引相关的Task。索引服务会创建或者销毁Segment。索引服务是一个Master/Slave架构。索引服务是三个组件的集合
 
-
-
 peon组件用来跑索引任务。
 
 Middle Manager组件用来管理peons
@@ -110,5 +106,5 @@ Overlord向MiddleManager分发任务。
 
 索引服务
 
-
+![](/assets/索引服务.png)
 
