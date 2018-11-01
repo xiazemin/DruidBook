@@ -12,4 +12,5 @@
 * [Query data](query-data.md)
 * [大数据分析和Druid](da-shu-jufen-xi-he-druid.md)
 * [Druid系统架构](druidxi-tong-jia-gou.md)
+* [druid特点](druidte-dian.md)
 
