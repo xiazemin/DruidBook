@@ -29,4 +29,5 @@
 * [Druid vs Impala/Shark](druid-vs-impalashark.md)
 * [Druid vs Elasticsearch](druid-vs-elasticsearch.md)
 * [Storage Engine](storage-engine.md)
+* [索引过程分析](suo-yin-guo-cheng-fen-xi.md)
 
