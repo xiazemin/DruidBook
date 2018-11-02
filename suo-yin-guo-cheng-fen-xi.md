@@ -32,3 +32,19 @@ Persist阶段
 
 ![](/assets/实时索引.png)
 
+Ingest阶段与Persist阶段内数据流走向以及内存情况。Druid对实时窗口内数据读写都做了大量优化，从而保证了实时海量数据的即席可查。
+
+
+
+Merge阶段 
+
+对于Persist阶段，会出现很多Smoosh碎片，小的碎片文件会严重影响后期的数据查询工作，所以在实时索引任务周期的末尾（略少于SegmentGranularity+WindowPeriod时长），每个Real-TimeNode会产生back-groundtask，一方面是等待时间窗口内“掉队”的数据，另一方面搜索本地磁盘所有已物化的Smoosh文件，并将其拼成Segment，也就是我们最后看到的index.zip。图3.29中，当到达索引任务末期14:10分时，Real-TimeNodes开始merge磁盘上的所有文件，生成Segment，准备Handoff。
+
+
+
+Handoff阶段 
+
+本阶段主要由CoordinatorNodes负责，CoordinatorNodes会将已完成的Segment信息注册到元信息库、上传DeepStorage，并通知集群内HistoricalNode去加载该Segment，同时每隔一定时间间隔\(默认1分钟\)检查Handoff状态，如果成功，Real-TimeNode会在Zookeeper中申明已不服务该Segment，并执行下一个时间窗口内的索引任务；如果失败，CoordinatorNodes会进行反复尝试。图3.29中，14:11分完成Handoff工作后，该Real-TimeNode申明不再为此时间窗口内的数据服务，开始下一个时间窗口内的索引任务。
+
+
+
