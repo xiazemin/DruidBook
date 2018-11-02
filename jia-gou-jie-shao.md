@@ -42,5 +42,17 @@ MetaStore和ZooKeeper中保存的信息是不一样的. ZooKeeper中保存的是
 
 ⑦ 历史节点从DeepStorage下载Segment并加载到内存/或者将已经保存的Segment删除掉
 
-⑧ 历史节点的Segment可以用于Broker的查询路由 
+⑧ 历史节点的Segment可以用于Broker的查询路由
+
+由于各个节点和其他节点都是最小化解耦的, 所以下面两张图分别表示实时节点和批量数据的流程:
+
+
+
+数据从Kafka导入到实时节点, 客户端直接查询实时节点的数据.
+
+
+
+ 批量数据使用IndexService,接收Post请求的任务,直接产生Segment写到DeepStorage里.DeepStorage中的数据只会被历史节点使用.
+
+所以这里要启动的服务有: IndexService\(overlord\), Historical, Coordinator\(协调节点通知历史节点下载Segment\),
 
