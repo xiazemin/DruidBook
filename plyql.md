@@ -1,3 +1,5 @@
+https://github.com/implydata/plyql
+
 Some time ago at Imply, we launched PlyQL, a command line utility that provides an SQL-like interface to Druid via Plywood. We heard a lot of positive feedback as many people prefer to use SQL over Druid’s native JSON-over-HTTP interface. The most common question we hear about PlyQL is how one can interface to it programmatically either from user created apps or from existing SQL based BI tools. We are pleased to announce we just released PlyQL 0.7 with two brand new programmatic interface options: SQL-over-HTTP and MySQL Gateway.
 
 SQL-over-HTTP
@@ -64,43 +66,21 @@ C
 
 onnection con = DriverManager.getConnection\\("jdbc:mysql://127.0.0.1:3307/plyql1"\\);
 
-
-
 Statement stmt = con.createStatement\\(\\);
-
-
 
 ResultSet rs = stmt.executeQuery\\(
 
-
-
 "SELECT page, count\\(\\*\\) AS cnt FROM wikipedia GROUP BY page ORDER BY cnt DESC LIMIT 15"
-
-
 
 \\);
 
-
-
-
-
-
-
 while \\(rs.next\\(\\)\\) {
-
-
 
 String page = rs.getString\\("page"\\);
 
-
-
 long count = rs.getLong\\("cnt"\\);
 
-
-
 System.out.println\\(String.format\\("page\\[%s\\] count\\[%d\\]", page, count\\)\\);
-
-
 
 }
 
