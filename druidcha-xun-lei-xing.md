@@ -34,15 +34,11 @@ Druid json查询比较重要的几个属性是：queryType、dataSource、granul
 
 指定一个精确时间持续时长（毫秒表示\)，返回UTC时间；支持可选项属性origin，不指定时默认开始时间（1970-01-01T00:00:00Z）
 
-
-
-/\*\*持续时间段2小时，从1970-01-01T00:00:00Z开始\*/  
+/\*\*持续时间段2小时，从1970-01-01T00:00:00Z开始\*/
 
 {"type": "duration", "duration": 7200000}
 
- 
-
-/\*\*持续时间1小时，从origin开始\*/  
+/\*\*持续时间1小时，从origin开始\*/
 
 {"type": "duration", "duration": 3600000, "origin": "2012-01-01T00:30:00Z"}
 
@@ -50,51 +46,35 @@ Druid json查询比较重要的几个属性是：queryType、dataSource、granul
 
 等价于sql 查询的where。也是支持and，or，in，not等。
 
-
-
 "filter": { "type": "selector", "dimension": &lt;dimension\_string&gt;, "value": &lt;dimension\_value\_string&gt; }
 
 聚合（Aggregations）
 
 聚合类型如下：Count aggregator、Sum aggregators、Min / Max aggregators、Approximate Aggregations、Miscellaneous Aggregations
 
+/\*\*Druid进行Count查询的数据量并不一定等于数据采集时导入的数据量，因为Druid在采集数据并导入时已经对数据进行了聚合\*/
 
-
-/\*\*Druid进行Count查询的数据量并不一定等于数据采集时导入的数据量，因为Druid在采集数据并导入时已经对数据进行了聚合\*/  
-
-{ "type" : "count", "name" : &lt;output\_name&gt; }  
-
- 
+{ "type" : "count", "name" : &lt;output\_name&gt; }
 
 /\*\*longSumaggregator：计算值为有符号位64位整数\*/
 
-{ "type" : "longSum", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }  
-
- 
+{ "type" : "longSum", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }
 
 /\*\*doubleSum aggregator：与longSum类似，计算值为64位浮点型\*/
 
-{ "type" : "doubleSum", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }  
-
- 
+{ "type" : "doubleSum", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }
 
 /\*\* doubleMin aggregator \*/
 
 { "type" : "doubleMin", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }
 
- 
-
 /\*\*doubleMax aggregator\*/
 
 { "type" : "doubleMax", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }
 
- 
-
 /\*\*longMin aggregator\*/
 
-{ "type" : "longMin", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }  
-
- 
+{ "type" : "longMin", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }
 
 /\*\* longMax aggregator\*/
 
@@ -108,45 +88,37 @@ Druid json查询比较重要的几个属性是：queryType、dataSource、granul
 
 hyperUnique聚合慢；一般我们强力推荐使用hyperUniqueaggregator而不是Cardinality aggregator，格式如下：
 
+{
 
+"type": "cardinality",
 
-{  
+"name": "&lt;output\_name&gt;",
 
-  "type": "cardinality",  
+"fieldNames": \[ &lt;dimension1&gt;, &lt;dimension2&gt;, ... \],
 
-  "name": "&lt;output\_name&gt;",  
-
-  "fieldNames": \[ &lt;dimension1&gt;, &lt;dimension2&gt;, ... \],  
-
-  "byRow": &lt;false \| true&gt; \# \(optional, defaults to false\)  
+"byRow": &lt;false \| true&gt; \# \(optional, defaults to false\)
 
 }
 
 维度值聚合-当设置属性byRow为false（默认值）时，通过合并所有给定的维度列来计算值集合。单维度等价于：
 
-
-
 SELECT COUNT\(DISTINCT\(dimension\)\) FROM &lt;datasource&gt;
 
 对于多维度，等价如下:
 
+SELECT COUNT\(DISTINCT\(value\)\) FROM \(
 
+SELECT dim\_1 as value FROM &lt;datasource&gt;
 
-SELECT COUNT\(DISTINCT\(value\)\) FROM \(  
+UNION
 
-  SELECT dim\_1 as value FROM &lt;datasource&gt;  
+SELECT dim\_2 as value FROM &lt;datasource&gt;
 
-  UNION  
+UNION
 
-  SELECT dim\_2 as value FROM &lt;datasource&gt;  
-
-  UNION  
-
-  SELECT dim\_3 as value FROM &lt;datasource&gt;
+SELECT dim\_3 as value FROM &lt;datasource&gt;
 
 行聚合-当设置属性byRow为true时，根所不同维度的值合并来计算行值，等价如下：
-
-
 
 SELECT COUNT\(\*\) FROM \( SELECT DIM1, DIM2, DIM3 FROM &lt;datasource&gt; GROUP BY DIM1, DIM2, DIM3 \)
 
@@ -154,15 +126,11 @@ HyperUnique aggregator
 
 “hyperunique”在创建索引时聚合的维度值使用HyperLogLog计算估计，更多资料请参考官网：
 
-
-
 { "type" : "hyperUnique", "name" : &lt;output\_name&gt;, "fieldName" : &lt;metric\_name&gt; }
 
 后聚合\(post-aggregators\)
 
 后聚合是对Druid进行聚合后的值进行聚全，如果查询中包括一个后聚合，那么确保所有聚合满足后聚合要求；后聚合有以下几种类型：
-
-
 
 Arithmetic post-aggregators
 
@@ -178,23 +146,19 @@ Arithmetic post-aggregators
 
 算术后聚合应用已提供的函数从左到右获取字段，这些字段可聚合或后聚合；支持+, -, \*, /, and quotient。
 
-
-
 算术后聚合语法如下：
 
+postAggregation : {
 
+"type"  : "arithmetic",
 
-postAggregation : {  
+"name"  : &lt;output\_name&gt;,
 
-  "type"  : "arithmetic",  
+"fn"    : &lt;arithmetic\_function&gt;,
 
-  "name"  : &lt;output\_name&gt;,  
+"fields": \[&lt;post\_aggregator&gt;, &lt;post\_aggregator&gt;, ...\],
 
-  "fn"    : &lt;arithmetic\_function&gt;,  
-
-  "fields": \[&lt;post\_aggregator&gt;, &lt;post\_aggregator&gt;, ...\],  
-
-  "ordering" : &lt;null \(default\), or "numericFirst"&gt;  
+"ordering" : &lt;null \(default\), or "numericFirst"&gt;
 
 }
 
@@ -202,5 +166,5 @@ postAggregation : {
 
 这些类型的查询以时间序列查询对象和返回一个JSON数组对象，每个对象表示时间序列查询的值，时间序列查询请求的Json的7个主要属性如下：
 
-
+![](/assets/时间聚合.png)
 
