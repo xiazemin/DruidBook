@@ -20,4 +20,5 @@
 * [tranquility-distribution](tranquility-distribution.md)
 * [druid原理](druidyuan-li.md)
 * [RealNode](realnode.md)
+* [HistoricalNode](historicalnode.md)
 
