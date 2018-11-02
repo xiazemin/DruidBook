@@ -22,4 +22,5 @@
 * [RealNode](realnode.md)
 * [HistoricalNode](historicalnode.md)
 * [BrokerNode](brokernode.md)
+* [CoordinatorNode](coordinatornode.md)
 
