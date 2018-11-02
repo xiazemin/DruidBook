@@ -21,4 +21,5 @@
 * [druid原理](druidyuan-li.md)
 * [RealNode](realnode.md)
 * [HistoricalNode](historicalnode.md)
+* [BrokerNode](brokernode.md)
 
