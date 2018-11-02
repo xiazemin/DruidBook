@@ -37,4 +37,5 @@
 * [位图索引](wei-tu-suo-yin.md)
 * [Caravel](caravel.md)
 * [查询过程](cha-xun-guo-cheng.md)
+* [PlyQL](plyql.md)
 
