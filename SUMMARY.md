@@ -41,4 +41,5 @@
 * [Community and Third Party Software](community-and-third-party-software.md)
 * [Druid对比Impala/Shark](druidduibi-impala-shark.md)
 * [Druid对比Redshift](druiddui-bi-redshift.md)
+* [Druid对比Vertica](druiddui-bi-vertica.md)
 
