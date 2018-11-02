@@ -39,4 +39,5 @@
 * [查询过程](cha-xun-guo-cheng.md)
 * [PlyQL](plyql.md)
 * [Community and Third Party Software](community-and-third-party-software.md)
+* [Druid对比Impala/Shark](druidduibi-impala-shark.md)
 
