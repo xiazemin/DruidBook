@@ -48,3 +48,9 @@ value="Justin Bieber": \[1,1,0,0\]
 
 value="Ke$ha":         \[0,0,1,1\]
 
+  注意bitmap不同于之前两个数据结构：前两个数据结构随着数据量的大小线性增长（最坏的情况），bitmap部分的大小是数据大小和列基数的乘积。我们可以对数据进行压缩，因为我们知道列数据的每一行，只会有一个bitmap具有非零项。这意味着高基数列具有高度稀疏的，并且因此高度可压缩的bitmap。Druid采取特别适合于bitmap的压缩算法（例如roaring bitmap 压缩算法）来对它进行压缩。 
+
+       以一个查询为例，select sum\(Characters Added\) from table where timestamp between 2011-01-01T00 and 2011-01-02T00 and Page=Justin Bieber and Gender=Male，首先根据时间段定位到这个Segment，然后查出Justin Bieber的字典编码0，Reach的字典编码1，得到Justin Bieber的bitmap为1100，Male的bitmap为1111，做AND操作得到1100，得到index为0,1，将这两个位置的Characters Added进行相加得到4712。
+
+
+
