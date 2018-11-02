@@ -23,4 +23,5 @@
 * [HistoricalNode](historicalnode.md)
 * [BrokerNode](brokernode.md)
 * [CoordinatorNode](coordinatornode.md)
+* [架构介绍](jia-gou-jie-shao.md)
 
