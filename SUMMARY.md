@@ -33,4 +33,5 @@
 * [Tranquility-Kafka索引过程](tranquility-kafkasuo-yin-guo-cheng.md)
 * [Kafka-Indexing-Service](kafka-indexing-service.md)
 * [Dimension](dimension.md)
+* [Druid索引与查询原理](druidsuo-yin-yu-cha-xun-yuan-li.md)
 
