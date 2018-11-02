@@ -44,4 +44,5 @@
 * [Druid对比Vertica](druiddui-bi-vertica.md)
 * [Druid对比Cassandra](druiddui-bi-cassandra.md)
 * [Druid对比Hadoop](druiddui-bi-hadoop.md)
+* [Druid和Spark对比](druidhe-spark-dui-bi.md)
 
