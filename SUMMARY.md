@@ -25,4 +25,5 @@
 * [CoordinatorNode](coordinatornode.md)
 * [架构介绍](jia-gou-jie-shao.md)
 * [索引服务（Indexing Service）](suo-yinfu-wu-ff08-indexing-service.md)
+* [Druid查询类型](druidcha-xun-lei-xing.md)
 
