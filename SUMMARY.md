@@ -30,4 +30,5 @@
 * [Druid vs Elasticsearch](druid-vs-elasticsearch.md)
 * [Storage Engine](storage-engine.md)
 * [索引过程分析](suo-yin-guo-cheng-fen-xi.md)
+* [Tranquility-Kafka索引过程](tranquility-kafkasuo-yin-guo-cheng.md)
 
