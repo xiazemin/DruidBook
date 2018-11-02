@@ -1,0 +1,30 @@
+Druid 0.9.1.1版本中新增了Experimental Features：KafkaIndexingService。之所以会增加这个新的特性，根据Druid官方博客：将Kafka集成进Druid，不仅是看重Kafka的高吞吐量以及高可靠性，同时也因为Kafka可以使流数据下游系统，也就是KafkaConsumer端能够更好地实现exactly-oncesemantics。我们在使用过Tranquility-Kafka后可知，数据丢失可能不仅是因为集群节点问题，同样可能是因为数据延迟从而造成没有落在时间窗口内而“被丢失”。
+
+
+
+采用Kafkaindexingservice主要有以下几方面的考虑：
+
+
+
+每一个进入Kafka的message都是有序、不变的，同时可以通过partition+offset的方式定位，而Druid作为Kafka的Consumer，可以通过该方式rewind到Kafka已存在的buffer中的任意一条message；
+
+
+
+Message是由Consumer端，也就是Druid自主地pull进入，而不是被KafkaBrokerpush进集群，push的方式我们知道，接收端无法控制接收速率，容易造成数据过载，而pull的方式Consumer端可以控制ingest速率，从而保证数据有序、稳定地进入Druid；
+
+
+
+Message中都包含了partition+offset标签，这就保证了作为Consumer的Druid可以通过确认机制保证每一条message都被读取，不会“被丢失”或“被重读”。
+
+
+
+所以，在Kafkaindexingservice中，每一个IndexingServiceTask都对应当前topic的一个partition，每一个partition都有对应的起止offset，那么Druid只需要按照offset顺序遍历读取该partition中所有的数据即可。同时，在读取过程中，Druid收到的每条message都会被确认，从而保证所有数据都被有序的读取，作索引，“加工成”Segment。当到达SegmentGranularity时，当前partition被读过的offset会被更新到元信息库的druid\_dataSource表中。
+
+
+
+KafkaSupervisor 
+
+KafkaSupervisor作为Kafkaindexingservice的监督者，运行在Overlord中，管理Kafka中某个topic对应的Druid中所有Kafkaindexingservicetasks生命周期。在生产环境中，我们通过构造Kafka Supervisor对应的spec文件，以JSON-OVER-HTTP 的方式发送给Overlord节点，Overlord启动KafkaSupervisor，监控对应的Kafkaindexingservicetasks。
+
+
+
