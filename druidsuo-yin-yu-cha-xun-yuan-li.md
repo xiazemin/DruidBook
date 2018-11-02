@@ -24,5 +24,39 @@ Druid会在导入阶段对数据进行Rollup，将维度相同组合的数据进
 
 那么如何通过建立索引来解决这类问题呢？答案是建立位图索引。
 
-![](/assets/位图索引.png)
+![](/assets/位图索引.png)其实索引位图可以看作是HashMap&lt;String, Bitmap&gt;。该map中的key就是维度的取值，value就是该表中对应的行是否有该维度的值。
+
+ 
+
+以SQL查询为例：
+
+1）boolean条件查询：
+
+
+
+Select sum\(value\) from AD\_areauser where time=’2017-10-11’and Appkey in \(‘appkey1’,’appkey2’\) and area=’北京’
+
+
+
+首先根据时间段定位到segment，然后根据Appkey=’appkey2’ and area=’北京’查到各自的bitmap：
+
+\(appkey1\(1000\) or appkey2\(0110\)\) and 北京\(1100\) = \(1100\)
+
+也就是说，符合条件的列是第一行和第二行，这两行的metric（value）的和为26.
+
+ 
+
+2）group by 查询：
+
+select area, sum\(value\) from AD\_areauser where time=’2017-10-11’and Appkey in \(‘appkey1’,’appkey2’\) group by area
+
+
+
+该查询与上面的查询不同之处在于将符合条件的列
+
+appkey1\(1000\) or appkey2\(0110\) = \(1110\)
+
+
+
+取出来，然后在内存中做分组聚合。结果为：北京：26， 上海：13.
 
