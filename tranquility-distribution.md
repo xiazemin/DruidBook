@@ -14,9 +14,15 @@ tranquility-distribution提供了Server和Kafka两种通过流来加载数据方
 
 原始数据是这个样子的
 
-
-
 {"unit": "milliseconds", "http\_method": "GET", "value": 70, "timestamp": "2017-11-28T03:16:20Z", "http\_code": "200", "page": "/list", "metricType": "request/latency", "server": "www2.example.com"}
 
 {"unit": "milliseconds", "http\_method": "GET", "value": 116, "timestamp": "2017-11-28T03:16:20Z", "http\_code": "200", "page": "/list", "metricType": "request/latency", "server": "www4.example.com"}
+
+对这些数据进行加工，其中timestampSpec为timestamp，dimensionsSpec包括page、server，metricsSpec为count和value的sum，加工之后Druid中存储的数据格式将变成下面的样子
+
+
+
+{"timestamp":"2017-11-28T03:16:20Z", "page":"/list", "server":"www2.example.com", "count":1, "valueSum":70}
+
+{"timestamp":"2017-11-28T03:16:20Z", "page":"/list", "server":"www4.example.com", "count":2, "valueSum":253}
 
