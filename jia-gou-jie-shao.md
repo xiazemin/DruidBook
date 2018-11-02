@@ -28,5 +28,19 @@ MetaStore和ZooKeeper中保存的信息是不一样的. ZooKeeper中保存的是
 
 除了上面介绍的节点角色外，Druid还依赖于外部的三个组件：ZooKeeper, Metadata Storage, Deep Storage，数据与查询流的交互图如下：
 
-![](/assets/数据查询交互图.png)
+![](/assets/数据查询交互图.png)① 实时数据写入到实时节点,会创建索引结构的Segment.
+
+② 实时节点的Segment经过一段时间会转存到DeepStorage
+
+③ 元数据写入MySQL; 实时节点转存的Segment会在ZooKeeper中新增一条记录
+
+④ 协调节点从MySQL获取元数据,比如schema信息\(维度列和指标列\)
+
+⑤ 协调节点监测ZK中有新分配/要删除的Segment,写入ZooKeeper信息:历史节点需要加载/删除Segment
+
+⑥ 历史节点监测ZK, 从ZooKeeper中得到要执行任务的Segment
+
+⑦ 历史节点从DeepStorage下载Segment并加载到内存/或者将已经保存的Segment删除掉
+
+⑧ 历史节点的Segment可以用于Broker的查询路由 
 
