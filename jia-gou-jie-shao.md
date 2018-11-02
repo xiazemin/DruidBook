@@ -28,3 +28,5 @@ MetaStore和ZooKeeper中保存的信息是不一样的. ZooKeeper中保存的是
 
 除了上面介绍的节点角色外，Druid还依赖于外部的三个组件：ZooKeeper, Metadata Storage, Deep Storage，数据与查询流的交互图如下：
 
+![](/assets/数据查询交互图.png)
+
