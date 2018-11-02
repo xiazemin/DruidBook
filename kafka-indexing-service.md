@@ -16,3 +16,25 @@ KafkaSupervisor作为Kafkaindexingservice的监督者，运行在Overlord中，�
 
 ![](/assets/kafkasupervisor.png)
 
+KafkaIndexingService中的数据流以及控制流。我们总结Supervisor的特性如下：
+
+
+
+Supervisor启动后，会启动最多不超过目标topic中最大partition数目的IndexingServiceTasks；
+
+
+
+负责管理所有Indexing Service Tasks的生命周期，包括每个task的运行状态、已运行时长\(以秒为单位\)，剩余时长等；
+
+
+
+重新创建失败任务以及协调下一个SegmentGranularity内新任务的创建工作等；
+
+
+
+Overlord的重启或Leader切换并不会影响Supervisor的工作；
+
+
+
+对于Schema更新，Supervisor首先会自动停止所有以老Schema运行中的任务，发布Segment；然后使用新Schema重新创建Indexing Service Tasks，保证在此过程中没有messages会被丢失或者重复读取。
+
