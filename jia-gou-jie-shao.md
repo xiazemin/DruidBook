@@ -8,3 +8,5 @@ Druid数据流转:黑色箭头：数据源包括实时流和批量数据. ④实
 
 Druid的集群依赖了ZooKeeper来维护数据拓扑. 每个组件都会与ZooKeeper交互，如下：
 
+![](/assets/druidzookeeper.png)
+
