@@ -18,4 +18,5 @@
 * [druid.io realtime+kafka](druidio-realtime+kafka.md)
 * [Druid中的Kafka Indexing Service](druidzhong-de-kafka-indexing-service.md)
 * [tranquility-distribution](tranquility-distribution.md)
+* [druid原理](druidyuan-li.md)
 
