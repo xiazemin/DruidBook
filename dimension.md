@@ -12,15 +12,11 @@ Dimension列是不同的，因为它支持filter和group-by的操作，因此每
 
 字典对值进行编码
 
-{"
+{
 
-Justin Bieber": 0,
-
-
+"Justin Bieber": 0,
 
 "Ke$ha": 1
-
-
 
 }
 
