@@ -38,4 +38,5 @@
 * [Caravel](caravel.md)
 * [查询过程](cha-xun-guo-cheng.md)
 * [PlyQL](plyql.md)
+* [Community and Third Party Software](community-and-third-party-software.md)
 
