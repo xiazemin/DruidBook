@@ -6,8 +6,6 @@ Segment: Druid中有个重要的数据单位叫segment，其是Druid通过bitmap
 
 Druid本身包含5个组成部分：Broker nodes, Historical nodes, Realtime nodes, Coordinator Nodes和indexing services. 分别的作用如下：
 
-
-
 Broker nodes: 负责响应外部的查询请求，通过查询Zookeeper将请求划分成segments分别转发给Historical和Real-time nodes，最终合并并返回查询结果给外部；
 
 Historial nodes: 负责’Historical’ segments的存储和查询。其会从deep storage中load segments，并响应Broder nodes的请求。Historical nodes通常会在本机同步deep storage上的部分segments，所以即使deep storage不可访问了，Historical nodes还是能serve其同步的segments的查询；
@@ -20,8 +18,6 @@ Druid中通常还会起一些indexing services用于数据导入，batch data和
 
 Druid还包含3个外部依赖
 
-
-
 Mysql：存储Druid中的各种metadata（里面的数据都是Druid自身创建和插入的），包含3张表：”druid\_config”（通常是空的）, “druid\_rules”（coordinator nodes使用的一些规则信息，比如哪个segment从哪个node去load）和“druid\_segments”（存储每个segment的metadata信息）；
 
 Deep storage: 存储segments，Druid目前已经支持本地磁盘，NFS挂载磁盘，HDFS，S3等。Deep Storage的数据有2个来源，一个是batch Ingestion, 另一个是real-time nodes；
@@ -31,8 +27,6 @@ ZooKeeper: 被Druid用于管理当前cluster的状态，比如记录哪些segmen
 查询
 
 Druid的查询是通过给Broker Nodes发送HTTP POST请求（也可以直接给Historical or Realtime Node），具体可见Druid官方文档。查询条件的描述是json文件，查询的response也是json格式。Druid的查询包含如下4种：
-
-
 
 Time Boundary Queries: 用于查询全部数据的时间跨度
 
@@ -49,8 +43,6 @@ groupBy Queries: 是Druid的最典型查询方式，非常类似于Mysql的group
 Timeseries queries: 其统计满足filter条件的”rows”上某几列的聚合结果，相比”groupBy Queries”不指定基于哪几列进行聚合，效率更高;
 
 TopN queries: 用于查询某一列上按照某种metric排序的最常见的N个values;
-
-本文小结
 
 Druid是一个开源的，分布式的，列存储的，适用于实时数据分析的系统，文档详细，易于上手；
 
