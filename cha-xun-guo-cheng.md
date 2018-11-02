@@ -22,13 +22,79 @@ DataSource元信息
 
 基本sql 使用
 
-
-
- 。plysql--   http://plywood.imply.io/plyql  （下面的端口应该是8082，我这个地方做了端口转换） 
-
-
+。plysql--   [http://plywood.imply.io/plyql](http://plywood.imply.io/plyql)  （下面的端口应该是8082，我这个地方做了端口转换）
 
 执行sql脚本（bin/plyql -h \*.\*.195.60:8085 -q ‘SHOW TABLES‘）
 
 \[teld@Druid imply-1.3.1\]$ bin/plyql -h \*.\*.195.60:8085 -q ‘SHOW TABLES‘
+
+http://druid.io/docs/0.10.1/querying/querying.html
+
+
+
+其他：
+
+
+
+Transforming Dimension Values
+
+
+
+The following JSON fields can be used in a query to operate on dimension values.
+
+
+
+http://druid.io/docs/0.10.1/querying/dimensionspecs.html
+
+
+
+Query Context
+
+
+
+The query context is used for various query configuration parameters. The following parameters apply to all querie
+
+
+
+http://druid.io/docs/0.10.1/querying/query-context.html
+
+
+
+Multi-value dimensions
+
+
+
+http://druid.io/docs/0.10.1/querying/multi-value-dimensions.html
+
+
+
+一、Querying
+
+Queries 是以HTTP REST形式向nodes请求 \(Broker, Historical, or Realtime\). JSON形式标识请求的内容：
+
+
+
+curl -X POST '&lt;queryable\_host&gt;:&lt;port&gt;/druid/v2/?pretty' -H 'Content-Type:application/json' -d @&lt;query\_json\_file&gt;
+
+其他形式的第三方查询库： client libraries 
+
+
+
+http://druid.io/libraries.html
+
+
+
+calcite库
+
+：http://calcite.apache.org/docs/druid\_adapter.html
+
+
+
+Apache Calcite - SQL parser, planner and query engine whose Druid adapter can query data residing in Druid, and combine it with data in other locations; has local and remote JDBC drivers powered by Avatica
+
+implydata/plyql - A command line and HTTP interface for issuing SQL queries to Druid
+
+SQL Support for Druid
+
+http://druid.io/docs/0.10.1/querying/sql.html
 
