@@ -42,4 +42,5 @@
 * [Druid对比Impala/Shark](druidduibi-impala-shark.md)
 * [Druid对比Redshift](druiddui-bi-redshift.md)
 * [Druid对比Vertica](druiddui-bi-vertica.md)
+* [Druid对比Cassandra](druiddui-bi-cassandra.md)
 
