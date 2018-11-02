@@ -12,11 +12,11 @@ Druid 是一个为在大数据集之上做实时统计分析而设计的开源�
 
 ![](/assets/原始数据.png)
 
-
-
 这也是Druid要求的格式，第一列为时间。Appkey和area都是维度列。value为metric列。
 
 Druid会在导入阶段对数据进行Rollup，将维度相同组合的数据进行聚合处理。Rollup会使用其设定的聚合器进行聚合。
 
 按天聚合后的数据如下（聚合后的DataSource为AD\_areauser\):
+
+![](/assets/聚合后的数据.png)
 
