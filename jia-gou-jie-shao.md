@@ -18,9 +18,7 @@ Broker节点根据ZooKeeper中的Segment所在的节点, 将查询请求路由�
 
 对于一个查询路由路径,Broker只会将请求分发到实时节点和历史节点, 因此元数据存储和DeepStorage都不会参与查询中\(看做是后台的进程\).
 
-    MetaData Storage 与 Zookeeper
-
-
+MetaData Storage 与 Zookeeper
 
 MetaStore和ZooKeeper中保存的信息是不一样的. ZooKeeper中保存的是Segment属于哪些节点. 而MetaStore则是保存Segment的元数据信息
 
