@@ -10,6 +10,18 @@ Dimension列是不同的，因为它支持filter和group-by的操作，因此每
 
 为了得到对这三个数据结构的具体感知，我们考虑上面的例子数据中的page列。表示此维度的三个数据结构如下表所示。
 
+原始数据
+
+page
+
+justin Biebe
+
+justin Biebe
+
+Ke$ha
+
+Ke$ha
+
 字典对值进行编码
 
 {
